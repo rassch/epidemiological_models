@@ -17,6 +17,7 @@ public class WindowGUI extends JFrame {{
 	
 	this.setVisible(true);
 	this.setSize(640, 400);
+	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	
 }
 
