@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 
 public class EpidemicsSimulator2000 {
@@ -6,6 +8,7 @@ public class EpidemicsSimulator2000 {
 		
 		Human czlek = new Human(2,1, "susceptible"); //test klasy human
 		WindowGUI frame = new WindowGUI(); //Tworzenie okna 
+		
 		
 	}
 
