@@ -9,6 +9,8 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JPanel;
 
 
+
+
 //https://www.youtube.com/watch?v=17y2hZWJN0U
 @SuppressWarnings("serial")
 public class AnimationPanel extends Canvas implements Runnable{
@@ -23,7 +25,7 @@ public class AnimationPanel extends Canvas implements Runnable{
 	
 	private Thread thread1;
 	
-	
+	private double animationSpeed = 60;
 	
 	
 	//animacja chodzi lub nie
@@ -55,15 +57,17 @@ public class AnimationPanel extends Canvas implements Runnable{
 	public void run()
 	{
 		long lastTime = System.nanoTime();//czas komputera w ns
-		final double ns = 1000_000_000.0 /20.0;
+		final double ns = 1000000000.0 /animationSpeed;
 		double delta =0;
+		
 		while(running)
 		{
 			long now = System.nanoTime();
 			delta+=(now -lastTime)/ns;
+			lastTime = now ;
 			while(delta >=1)
 			{
-				update();	//odswiezanie parametrow do animacji 20 razy na seuknde
+				update();	//odswiezanie parametrow do animacji animationSpeed razy na seuknde
 				delta--;
 			}
 		
@@ -71,9 +75,12 @@ public class AnimationPanel extends Canvas implements Runnable{
 		}
 		stop();
 	}
+	int x =0, y =0;
 	public void update()
 	{
-		
+		//y++;
+		//x++;
+		//y++;
 	}
 	public void render()
 	{
@@ -109,9 +116,12 @@ public class AnimationPanel extends Canvas implements Runnable{
 		//g = (Graphics2D) img.getGraphics();
 		//g.setColor(Color.pink);
 		//g.fillRect(0, 0, 40, 40);
-		human = new Human(200,200,1);
-		
+		human = new Human(200,200);
+		human.init();
 	}
-	
+	void setAnimationSpeed(int n)
+	{
+		this.animationSpeed = n;
+	}
 
 }
