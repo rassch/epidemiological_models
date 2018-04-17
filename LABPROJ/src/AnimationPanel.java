@@ -25,7 +25,8 @@ public class AnimationPanel extends Canvas implements Runnable{
 	
 	private Thread thread1;
 	
-	private double animationSpeed = 60;
+	private double animationSpeed = 2;
+	private int animationSpeed2 = 500;
 	
 	
 	//animacja chodzi lub nie
@@ -58,8 +59,15 @@ public class AnimationPanel extends Canvas implements Runnable{
 	{
 		long lastTime = System.nanoTime();//czas komputera w ns
 		final double ns = 1000000000.0 /animationSpeed;
-		double delta =0;
-		
+		double delta = 0;
+	
+		init();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while(running)
 		{
 			long now = System.nanoTime();
@@ -70,12 +78,37 @@ public class AnimationPanel extends Canvas implements Runnable{
 				update();	//odswiezanie parametrow do animacji animationSpeed razy na seuknde
 				delta--;
 			}
-		
+			try {
+				Thread.sleep(animationSpeed2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			render();//odswiezanie samej animacji
 		}
-		stop();
+		//stop();
 	}
 	int x =0, y =0;
+	public void init()
+	{
+		System.out.println("Init rusza");
+		human.clear();//zerujemy tablice
+		human.initGrid();;//rysujemy nowy obraz
+		human.init();
+		for(int i=0;i<pixels.length;i++)
+		{
+			//przepisanie kolorow z humana na tablice panelu animacji
+			pixels[i]=human.pixels[i];
+		}
+		BufferStrategy bs = getBufferStrategy();
+		createBufferStrategy(1);
+		Graphics g1 = bs.getDrawGraphics();
+		
+		g1.drawImage(img,0,0,getWidth(),getHeight(),null);
+		System.out.println("Powinien byæ obraz");
+		return;
+		
+	}
 	public void update()
 	{
 		//y++;
@@ -93,6 +126,7 @@ public class AnimationPanel extends Canvas implements Runnable{
 			createBufferStrategy(3);//trzymanie 3 klatek w buforze
 			return;
 		}
+		
 		//wypelnianie poszczegolnych pikseli wybranymi kolorami
 		human.clear();//czyscimy stary obraz
 		human.render();//rysujemy nowy obraz
@@ -109,15 +143,11 @@ public class AnimationPanel extends Canvas implements Runnable{
 		g.drawImage(img,0,0,getWidth(),getHeight(),null);
 		g.dispose();//wyrzuca stary obiekt g robiac miejsce dla kolejnego
 		bs.show();//pokazujemy nasz obraz
+		System.out.println("A TU DZIA£A !!!");
 	}
 	AnimationPanel()
 	{
-		//img = new BufferedImage(400,400,BufferedImage.TYPE_INT_RGB);
-		//g = (Graphics2D) img.getGraphics();
-		//g.setColor(Color.pink);
-		//g.fillRect(0, 0, 40, 40);
 		human = new Human(200,200);
-		human.init();
 	}
 	void setAnimationSpeed(int n)
 	{
