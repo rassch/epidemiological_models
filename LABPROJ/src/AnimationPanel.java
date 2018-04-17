@@ -18,58 +18,58 @@ public class AnimationPanel extends Canvas implements Runnable{
 	
 	private Human human;
 	//Graphics2D g;
-	//robimy BufferedImage dla 20x20 pikseli(ludzików);
-	private BufferedImage img = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB); ;
-	//getRaster daje tablice pikseli ktorym mozemy zmieniac kolory, getData je wyciaga w postaci inta
-	private int[] pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();
+	
+	private BufferedImage img = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzików);
+
+	private int[] pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();	//getRaster daje tablice pikseli ktorym mozemy zmieniac kolory, getData je wyciaga w postaci inta
 	
 	private Thread thread1;
 	
 	private double animationSpeed = 2;
-	private int animationSpeed2 = 500;
+	private int animationSpeed2 = 1000;
+	private int[] states;
+
+	
+	private boolean running = false;//animacja chodzi lub nie
 	
 	
-	//animacja chodzi lub nie
-	private boolean running = false;
-	
-	//funkcja do uruchuomienia procesu animacji
-	public synchronized void start()
+	public synchronized void start()//funkcja do uruchuomienia procesu animacji
 	{
 		//odpalanie petli animacji
 		running=true;
 		thread1 = new Thread(this,"animacja");
 		thread1.start();
 	}
-	//funckja do zatrzymania procesu animacji
-	public synchronized void stop()
+
+	public synchronized void stop()	//funckja do zatrzymania procesu animacji
 	{
-		//wylaczenie petli animacji
-		running=false;
+		
+		running=false;//wylaczenie petli animacji
 		try{
-		//thread.join czeka na az thread1 skonczy sie wykonywac, czyli na ostatnie odswiezenie animacji  
-		thread1.join();
+		 
+		thread1.join();//thread.join czeka na az thread1 skonczy sie wykonywac, czyli na ostatnie odswiezenie animacji 
 		}catch(InterruptedException e)
 		{
-			//jak sie zwali to wypisze jakiegos tam errora 
-			e.printStackTrace();
+			 
+			e.printStackTrace();//jak sie zwali to wypisze jakiegos tam errora
 		}
 	}
-	//metoda startujaca i renderujaca na bierzaco animacje
-	public void run()
+	
+	public synchronized void run()//metoda startujaca i renderujaca na bierzaco animacje
 	{
 		long lastTime = System.nanoTime();//czas komputera w ns
 		final double ns = 1000000000.0 /animationSpeed;
 		double delta = 0;
-	
-		init();
 		try {
 			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
+		init();
 		while(running)
 		{
+			
 			long now = System.nanoTime();
 			delta+=(now -lastTime)/ns;
 			lastTime = now ;
@@ -89,10 +89,10 @@ public class AnimationPanel extends Canvas implements Runnable{
 		//stop();
 	}
 	int x =0, y =0;
-	public void init()
+	public synchronized void init()
 	{
 		System.out.println("Init rusza");
-		human.clear();//zerujemy tablice
+		
 		human.initGrid();;//rysujemy nowy obraz
 		human.init();
 		for(int i=0;i<pixels.length;i++)
@@ -101,21 +101,28 @@ public class AnimationPanel extends Canvas implements Runnable{
 			pixels[i]=human.pixels[i];
 		}
 		BufferStrategy bs = getBufferStrategy();
-		createBufferStrategy(1);
+		if(bs==null)
+		{
+				
+			createBufferStrategy(1);//trzymanie 3 klatek w buforze 
+			bs = getBufferStrategy();
+		}
+		
 		Graphics g1 = bs.getDrawGraphics();
 		
 		g1.drawImage(img,0,0,getWidth(),getHeight(),null);
+		bs.show();
 		System.out.println("Powinien byæ obraz");
 		return;
 		
 	}
-	public void update()
+	public synchronized void update()
 	{
 		//y++;
 		//x++;
 		//y++;
 	}
-	public void render()
+	public synchronized void  render()
 	{
 		//bufor dla klatek animacji, dzieki temu program zapamietuje poprzedni stan animacji, gdzies obok oblicza 
 		//paramtery dla kolejnego i potem moze narysowac kolejna klatke
@@ -123,12 +130,11 @@ public class AnimationPanel extends Canvas implements Runnable{
 		if(bs==null)
 		{
 			//tworzenie tego obiektu gdyby tam wyzej sie nie zrobil w czasie animacji
-			createBufferStrategy(3);//trzymanie 3 klatek w buforze
+			createBufferStrategy(1);//trzymanie 3 klatek w buforze
 			return;
 		}
 		
 		//wypelnianie poszczegolnych pikseli wybranymi kolorami
-		human.clear();//czyscimy stary obraz
 		human.render();//rysujemy nowy obraz
 		
 		for(int i=0;i<pixels.length;i++)
@@ -148,10 +154,23 @@ public class AnimationPanel extends Canvas implements Runnable{
 	AnimationPanel()
 	{
 		human = new Human(200,200);
+		
 	}
 	void setAnimationSpeed(int n)
 	{
 		this.animationSpeed = n;
 	}
-
+	public int[] states()
+	{
+		for(int i=0;i<pixels.length;i++)
+		{
+			if(this.pixels[i] == 65280)
+			{
+				states[i]=1;//ZIELONY
+			}
+			else
+			states[i] =0;//CZERWONY
+		}
+		return this.states;
+	}
 }

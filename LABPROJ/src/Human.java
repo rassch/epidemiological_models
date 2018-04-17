@@ -1,16 +1,24 @@
 import java.util.Random;
 
-public class Human {
+public class Human  {
+	
 	
 	private int width, height;
 	private int numOfPatientsX = 10000;
 	public int[] pixels;//zawiera dane do pikseli
+	private int[] states;
+	private int[] SIS;
 	private Random random = new Random();
 	public Human(int width, int height)
 	{
 		this.width=width;
 		this.height=height;
 		pixels = new int[width * height];
+	}
+	public int[] SIS()
+	{
+		//tutaj trzeba wklepaæ równania modelu SIS i zapisaæ nowe stany do this.SIS , gdzie Zielony piksel ma mieæ wartoœæ 65280 , a czerwony 16711680
+		return this.SIS;
 	}
 	public void init()
 	{
@@ -40,7 +48,8 @@ public class Human {
 	public void render()//funckja przypisujaca kolory pikselom
 	{
 		
-			
+		pixels = SIS;	
+		/*
 			for(int y=0;y<height;y++)
 			{
 				//int yy =y +yOffset;
@@ -52,11 +61,11 @@ public class Human {
 					//ten & powoduje , ¿e xx i yy nigdy nie przekrocz¹ 64 indeksu
 					//xx >> 4 czyli innymi slowy xx nigdy nie bedzie wieksze od 4
 					//int tileIndex =((xx >> 4) & MAP_SIZE_MASK) + ((yy >> 4) & MAP_SIZE_MASK) * MAP_SIZE;
-					pixels[x+y*width] = 0x00FF00;//x+y*width iterowanie od lewego gornego rogu po rzedach
+					pixels[x+y*width] = random.nextInt();//x+y*width iterowanie od lewego gornego rogu po rzedach
 					
 				}		
 			}
-		
+			*/
 	}
 	public int getWidth()
 	{
@@ -70,6 +79,7 @@ public class Human {
 	{
 		this.numOfPatientsX = numOfPatietnsX;
 	}
+	
 	
 	
 }
