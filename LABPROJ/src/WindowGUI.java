@@ -16,8 +16,8 @@ public class WindowGUI extends JFrame {
 	this.add(animation);
 	this.pack();
 	 // dodanie paneli do okna
+	//animation.start();
 	
-	animation.start();
 	//animation.stop();
 	this.setVisible(true);
 	this.setSize(650, 410);
