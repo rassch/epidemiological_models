@@ -1,12 +1,9 @@
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.swing.JPanel;
 
 
 
@@ -16,16 +13,15 @@ import javax.swing.JPanel;
 public class AnimationPanel extends Canvas implements Runnable{
 	
 	
-	private Human human;
+	
 	//Graphics2D g;
 	private States states = new States();
-	private BufferedImage img = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzików);
+	private BufferedImage img = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzików);
 
 	private int[] pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();	//getRaster daje tablice pikseli ktorym mozemy zmieniac kolory, getData je wyciaga w postaci inta
-	
+	private int[] tmp;
 	private Thread thread1;
 
-	private double animationSpeed = 2;
 	private int animationSpeed2 = 1000;
 
 	
@@ -96,20 +92,18 @@ public class AnimationPanel extends Canvas implements Runnable{
 		}
 		//stop();
 	}
-	int x =0, y =0;
+
 	public synchronized void init()
 	{
-		System.out.println("Init rusza");
-		/*
-		human = new Human(200,200);
-		human.initGrid();;//rysujemy nowy obraz
-		human.init();
+		
+		tmp = states.init();
+	
 		for(int i=0;i<pixels.length;i++)
 		{
-			//przepisanie kolorow z humana na tablice panelu animacji
-			pixels[i]=human.pixels[i];
+			
+			pixels[i]=tmp[i];
 		}
-		*/
+		
 		BufferStrategy bs = getBufferStrategy();
 		if(bs==null)
 		{
@@ -117,22 +111,15 @@ public class AnimationPanel extends Canvas implements Runnable{
 			createBufferStrategy(1);//trzymanie 3 klatek w buforze 
 			bs = getBufferStrategy();
 		}
-		this.pixels = states.init(); // przypisanie poczatkowych pikseli
-		
+
 		Graphics g1 = bs.getDrawGraphics();
 		
 		g1.drawImage(img,0,0,getWidth(),getHeight(),null);
 		bs = getBufferStrategy();
 		bs.show();
-		System.out.println("Powinien byæ obraz");
+
 		return;
 		
-	}
-	public synchronized void update()
-	{
-		//y++;
-		//x++;
-		//y++;
 	}
 	public synchronized void  render()
 	{
@@ -146,48 +133,27 @@ public class AnimationPanel extends Canvas implements Runnable{
 			return;
 		}
 		
-		/*
-		human.render();//rysujemy nowy obraz
+		
+		int[] tmp = states.statesToPixels();
 		
 		for(int i=0;i<pixels.length;i++)
 		{
 		
-			pixels[i]=human.pixels[i];	//przepisanie kolorow z humana na tablice panelu animacji
+			pixels[i]=tmp[i];	//przepisanie kolorow z humana na tablice panelu animacji
 		}
-		*/
-		pixels = states.pixels();
+		
+	
 		
 		Graphics g = bs.getDrawGraphics();//³¹czy obiekty graficze z BufferStrategy
 		
 		g.drawImage(img,0,0,getWidth(),getHeight(),null);
 		g.dispose();//wyrzuca stary obiekt g robiac miejsce dla kolejnego
 		bs.show();//pokazujemy nasz obraz
-		System.out.println("A TU DZIA£A !!!");
+	
 	}
 	public AnimationPanel()
 	{
 		start();
 	}
 
-
-
-	void setAnimationSpeed(int n)
-	{
-		this.animationSpeed = n;
-	}
-	/*
-	public int[] states()
-	{
-		for(int i=0;i<pixels.length;i++)
-		{
-			if(this.pixels[i] == 65280)
-			{
-				states[i]=1;//ZIELONY SUSCEPTIBLE
-			}
-			else
-			states[i] =0;//CZERWONY INFECTIOUS
-		}
-		return this.states;
-	}
-	*/
 }
