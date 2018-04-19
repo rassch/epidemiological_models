@@ -15,8 +15,8 @@ public class AnimationPanel extends Canvas implements Runnable{
 	
 	
 	//Graphics2D g;
-	private States states = new States();
-	private BufferedImage img = new BufferedImage(states.human.getHeight(), states.human.getWidth(), BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzików);
+	public States states = new States();
+	private BufferedImage img = new BufferedImage(states.human.getHeight(), states.human.getWidth(), BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzikï¿½w);
 
 	private int[] pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();	//getRaster daje tablice pikseli ktorym mozemy zmieniac kolory, getData je wyciaga w postaci inta
 	private int[] tmp;
@@ -144,7 +144,7 @@ public class AnimationPanel extends Canvas implements Runnable{
 		
 	
 		
-		Graphics g = bs.getDrawGraphics();//³¹czy obiekty graficze z BufferStrategy
+		Graphics g = bs.getDrawGraphics();//ï¿½ï¿½czy obiekty graficze z BufferStrategy
 		
 		g.drawImage(img,0,0,getWidth(),getHeight(),null);
 		g.dispose();//wyrzuca stary obiekt g robiac miejsce dla kolejnego

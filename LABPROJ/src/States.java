@@ -2,7 +2,7 @@
 
 public class States
 {
-	Human human = new Human(20, 20);//konstrkutory dla poszczegolnych typow modeli i oswiezan
+	public Human human = new Human(100, 100);//konstrkutory dla poszczegolnych typow modeli i oswiezan
 	
 	private int[] pixels = new int[human.getHeight() * human.getWidth()];//piksele ktore trafia do AnimationPanel i zostana narysowane
 	private int[] states = new int[human.getHeight() * human.getWidth()];//stany na ktorych model operuje i updatuje

@@ -4,11 +4,11 @@ public class Human  {
 	
 	
 	//private int sickDaysPeriod = 3;//czas trwania choroby
-	
-	private double tras_rate = 0.5; //parametr zarazania
+	private double death_rate = 0;
+	private double tras_rate = 0.3; //parametr zarazania
 	private double getHealthyRate = 0.4;//parametr zdrowienia
-	private int width = 20, height = 20; // rozmiary siatki
-	private int numOfPatientsX = 20;//poczatkowa liczba chorych
+	private int width=100, height=100; // rozmiary siatki
+	private int numOfPatientsX = 5;//poczatkowa liczba chorych
 	public int[] pixels;//zawiera dane do pikseli
 	private int[] states = new int[width*height];
 	private int[] sickDays = new int[width*height];
@@ -156,11 +156,40 @@ public class Human  {
 	{
 		return height;
 	}
+	
+	public void setWidth(int Width)
+	{
+		width = Width;
+	}
+	public void setHeight(int Height)
+	{
+		height=Height;
+	}
+	
 	public void setNumOfPatientsX(int numOfPatietnsX)
 	{
 		this.numOfPatientsX = numOfPatietnsX;
 	}
 	
 	
+	public void setgetHealthyRate(double Rate)
+	{
+		this.getHealthyRate = Rate;
+	}
 	
+	
+	public void settras_rate(double Rate)
+	{
+		this.tras_rate = Rate;
+	}
+	
+	public void setdeath_rate(double Rate)
+	{
+		this.death_rate = Rate;
+	}
+	
+	public int getNumOfPatientsX()
+	{
+		return numOfPatientsX;
+	}
 }
