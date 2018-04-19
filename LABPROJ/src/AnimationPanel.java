@@ -16,13 +16,13 @@ public class AnimationPanel extends Canvas implements Runnable{
 	
 	//Graphics2D g;
 	private States states = new States();
-	private BufferedImage img = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzików);
+	private BufferedImage img = new BufferedImage(states.human.getHeight(), states.human.getWidth(), BufferedImage.TYPE_INT_RGB); //robimy BufferedImage dla 20x20 pikseli(ludzików);
 
 	private int[] pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();	//getRaster daje tablice pikseli ktorym mozemy zmieniac kolory, getData je wyciaga w postaci inta
 	private int[] tmp;
 	private Thread thread1;
 
-	private int animationSpeed2 = 1000;
+	private int animationSpeed2 = 100;//odswiezanie co x ms
 
 	
 	private boolean running = false;//animacja chodzi lub nie
