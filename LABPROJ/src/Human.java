@@ -3,10 +3,12 @@ import java.util.Random;
 public class Human  {
 	
 	
-	private int sickDaysPeriod = 3;//czas trwania choroby
-	private double tras_rate = 0.4; //parametr zarazania
+	//private int sickDaysPeriod = 3;//czas trwania choroby
+	
+	private double tras_rate = 0.5; //parametr zarazania
+	private double getHealthyRate = 0.4;//parametr zdrowienia
 	private int width = 20, height = 20; // rozmiary siatki
-	private int numOfPatientsX = 3;//poczatkowa liczba chorych
+	private int numOfPatientsX = 20;//poczatkowa liczba chorych
 	public int[] pixels;//zawiera dane do pikseli
 	private int[] states = new int[width*height];
 	private int[] sickDays = new int[width*height];
@@ -104,7 +106,7 @@ public class Human  {
 		}		
 		for(int i=0;i<pixels.length;i++)
 		{
-			if(sickDays[i]>sickDaysPeriod)//sprawdzamy czy piksel byl juz chory tyle razy ile dalismy parametr
+			if(sickDays[i]>0 && random.nextFloat() < getHealthyRate)//sprawdzamy czy piksel byl juz chory, jezeli tak to ma szanse wyzdrowiec jak wyzdrowiec 
 			{
 				sickDays[i]=0;//jezeli tak to zerujemy jego liczbe dni choroby
 				states[i]=0;// i uznajemy go za zdrowego z tej turze do wyswietlenia
