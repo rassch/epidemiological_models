@@ -16,17 +16,18 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 	AnimationPanel anim = new AnimationPanel();
 	
 	JSlider recovery_rate = new JSlider(0,100,10);
-	JSlider transm_rate = new JSlider(0,100,10);
+	JSlider transm_rate = new JSlider(0,100,20);
 	JSlider death_rate = new JSlider(0,100,0);
 	JLabel recovery_rate_label = new JLabel ("recovery rate (%)");
 	JLabel transm_rate_label = new JLabel ("transmission rate (%)");
 	JLabel death_rate_label = new JLabel ("death rate (%)");
 	JLabel disease_settings_label = new JLabel ("SIMULATION SETTINGS");
 	JLabel sick_people = new JLabel ("People starting sick");
-	JSlider sick_people_slider = new JSlider(0,(int) (width_length*width_length*0.1),0);
+	JSlider sick_people_slider = new JSlider(0,(int) (width_length*width_length*0.1),1);
 	JLabel sim_size_label = new JLabel ("Simulation size");
 	JSlider sim_size = new JSlider(10,100,100);
-	JButton play = new JButton("Start");
+	JButton play = new JButton("Start SIS");
+	JButton play_sir = new JButton("Start SIR");
 	JButton update = new JButton("Update");
 	JButton reset = new JButton("Reset");
 	
@@ -93,11 +94,11 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		lineO5.addComponent(transm_rate);
 		columnO1.addComponent(transm_rate);
 		
-		lineO6.addComponent(death_rate_label);
-		columnO1.addComponent(death_rate_label);
+		//lineO6.addComponent(death_rate_label);
+		//columnO1.addComponent(death_rate_label);
 		
-		lineO7.addComponent(death_rate);
-		columnO1.addComponent(death_rate);
+		//lineO7.addComponent(death_rate);
+		//columnO1.addComponent(death_rate);
 		
 		lineO8.addComponent(sick_people);
 		columnO1.addComponent(sick_people);
@@ -114,11 +115,11 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		line12.addComponent(play);
 		columnO1.addComponent(play);
 		
-		//line13.addComponent(update); //dziala, ale na razie go chowam bo mi sie zlewa z przyciskiem reset
-		//columnO1.addComponent(update);
+		line13.addComponent(play_sir); 
+		columnO1.addComponent(play_sir);
 		
-		line14.addComponent(reset);
-		columnO1.addComponent(reset);
+		line14.addComponent(update);
+		columnO1.addComponent(update);
 		
 		//suwak do prawd. wyzdrowienia
 		//recovery_rate.setOrientation(JSlider.VERTICAL);
@@ -154,8 +155,8 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		
 		this.setBackground(new Color(204,255,255));
 		//this.add(recovery_rate);
-		this.add(transm_rate);
-		this.add(death_rate);
+		//this.add(transm_rate);
+		//this.add(death_rate);
 		//synchroniczne czy nie 
 		//this.add(asynchronous);
 		

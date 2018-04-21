@@ -17,7 +17,7 @@ public class WindowGUI extends JFrame {
 		animation.states.human.setNumOfPatientsX(settings.sick_people_slider.getValue()); 
 		animation.states.human.setgetHealthyRate(settings.recovery_rate.getValue()*0.01);//reszta działa
 		animation.states.human.settras_rate(settings.transm_rate.getValue()*0.01);
-		animation.states.human.setdeath_rate(settings.death_rate.getValue()*0.01);
+		
 	}
 	public void run()
 	{
@@ -58,6 +58,21 @@ public class WindowGUI extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			settings.play_sir.setEnabled(false);
+			settings.play.setEnabled(false);
+			setValuesAnim();//przypisanie poczatkowych parametrow
+			run();//wlaczanie animacji
+			
+		}
+	});
+	
+	settings.play_sir.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			animation.states.setSIRtrue();
+			settings.play_sir.setEnabled(false);
+			settings.play.setEnabled(false);
 			setValuesAnim();//przypisanie poczatkowych parametrow
 			run();//wlaczanie animacji
 			

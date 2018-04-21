@@ -7,15 +7,12 @@ public class States
 	private int[] pixels = new int[human.getHeight() * human.getWidth()];//piksele ktore trafia do AnimationPanel i zostana narysowane
 	private int[] states = new int[human.getHeight() * human.getWidth()];//stany na ktorych model operuje i updatuje
 	private int[] tmp = new int[human.getHeight() * human.getWidth()];
-	private boolean sis,synchronous,asynchronous,sir;//wybor modelu i rodzaju odswiezania
+	private boolean sis=true,synchronous=true,sir= false;//wybor modelu i rodzaju odswiezania
 	private void update()//wybor modelu i odswiezania
 	{
 
-		sis=true;
-		synchronous =true;
-		sir = false;
-		asynchronous = false;
-		if(sis & synchronous )
+
+		if(sis && synchronous )
 		{
 			
 			tmp = human.newStates();//wziecie z humana nowych stanow i przepisanie ich do tmp
@@ -24,12 +21,14 @@ public class States
 			{
 				this.states[i] = tmp[i]; // przepisanie z tmp do stanow tutaj, ktore beda przepisane w funkcji statesToPixels na piksele
 			}
-		}else if(sis & asynchronous)
+		}else if(sir && synchronous)
 		{
-		
-		}else if(sir & synchronous)
-		{
-		
+			tmp = human.newStatesSIR();//wziecie z humana nowych stanow i przepisanie ich do tmp
+			
+			for(int i = 0;i<pixels.length;i++)
+			{
+				this.states[i] = tmp[i]; // przepisanie z tmp do stanow tutaj, ktore beda przepisane w funkcji statesToPixels na piksele
+			}
 		}else 
 		{
 		
@@ -46,6 +45,10 @@ public class States
 			if(states[i] == 0)//Czyli jak stan zdrowy
 			{
 				pixels[i] = 65280 ;//to bedzie mial zielony kolor
+			}
+			else if (states[i] == -1)//czyli trup
+			{
+				pixels[i] = 0x4286F4;//wtedy kolor blu
 			}
 			else//czyli stan chory
 			{
@@ -65,5 +68,13 @@ public class States
 	{
 		
 	}
-
+	void setSIRtrue()
+	{
+		sir = true;
+		sis =false;
+		synchronous = true;
+	}
 }
+	
+
+
