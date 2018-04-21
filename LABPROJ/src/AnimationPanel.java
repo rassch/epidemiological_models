@@ -35,7 +35,8 @@ public class AnimationPanel extends Canvas implements Runnable{
 		thread1 = new Thread(this,"animacja");
 		thread1.start();
 	}
-
+	
+	
 	public synchronized void stop()	//funckja do zatrzymania procesu animacji
 	{
 		
@@ -43,9 +44,10 @@ public class AnimationPanel extends Canvas implements Runnable{
 		try{
 		 
 		thread1.join();//thread.join czeka na az thread1 skonczy sie wykonywac, czyli na ostatnie odswiezenie animacji 
+		 Thread.currentThread().interrupt();
 		}catch(InterruptedException e)
 		{
-			 
+			
 			e.printStackTrace();//jak sie zwali to wypisze jakiegos tam errora
 		}
 	}
@@ -153,7 +155,7 @@ public class AnimationPanel extends Canvas implements Runnable{
 	}
 	public AnimationPanel()
 	{
-		start();
+		//start();
 	}
 
 }

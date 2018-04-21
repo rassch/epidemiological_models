@@ -2,15 +2,18 @@ import java.awt.Color;
 
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+//import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListenery
 	
 	int width_length = 20;
+	
+	AnimationPanel anim = new AnimationPanel();
 	
 	JSlider recovery_rate = new JSlider(0,100,10);
 	JSlider transm_rate = new JSlider(0,100,10);
@@ -23,8 +26,9 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 	JSlider sick_people_slider = new JSlider(0,(int) (width_length*width_length*0.1),0);
 	JLabel sim_size_label = new JLabel ("Simulation size");
 	JSlider sim_size = new JSlider(10,100,100);
-	JButton play = new JButton("GO!");
-	
+	JButton play = new JButton("Start");
+	JButton update = new JButton("Update");
+	JButton reset = new JButton("Reset");
 	
 	SettingsPanel(){
 		//group Layout
@@ -34,6 +38,7 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		objPropertiesPanelLayout.setAutoCreateContainerGaps(true);
 		//
 		GroupLayout.Group columnO1 = objPropertiesPanelLayout.createParallelGroup(Alignment.LEADING);
+		//GroupLayout.Group columnO2 = objPropertiesPanelLayout.createParallelGroup(Alignment.TRAILING);
 		GroupLayout.Group lineO1 = objPropertiesPanelLayout.createParallelGroup();
 		GroupLayout.Group lineO2 = objPropertiesPanelLayout.createParallelGroup();
 		GroupLayout.Group lineO3 = objPropertiesPanelLayout.createParallelGroup();
@@ -46,9 +51,13 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		GroupLayout.Group line10 = objPropertiesPanelLayout.createParallelGroup();
 		GroupLayout.Group line11 = objPropertiesPanelLayout.createParallelGroup();
 		GroupLayout.Group line12 = objPropertiesPanelLayout.createParallelGroup();
+		GroupLayout.Group line13 = objPropertiesPanelLayout.createParallelGroup();
+		GroupLayout.Group line14 = objPropertiesPanelLayout.createParallelGroup();
 		//
 		GroupLayout.SequentialGroup linesO = objPropertiesPanelLayout.createSequentialGroup();
 		GroupLayout.SequentialGroup columnsO = objPropertiesPanelLayout.createSequentialGroup();
+		//GroupLayout.SequentialGroup columns1 = objPropertiesPanelLayout.createSequentialGroup();
+		
 		linesO.addGroup(lineO1);
 		linesO.addGroup(lineO2);
 		linesO.addGroup(lineO3);
@@ -61,7 +70,10 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		linesO.addGroup(line10);
 		linesO.addGroup(line11);
 		linesO.addGroup(line12);
+		linesO.addGroup(line13);
+		linesO.addGroup(line14);
 		columnsO.addGroup(columnO1);
+		//columns1.addGroup(columnO2);
 		//
 		objPropertiesPanelLayout.setHorizontalGroup(columnsO);
 		objPropertiesPanelLayout.setVerticalGroup(linesO);
@@ -102,6 +114,11 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		line12.addComponent(play);
 		columnO1.addComponent(play);
 		
+		//line13.addComponent(update); //dziala, ale na razie go chowam bo mi sie zlewa z przyciskiem reset
+		//columnO1.addComponent(update);
+		
+		line14.addComponent(reset);
+		columnO1.addComponent(reset);
 		
 		//suwak do prawd. wyzdrowienia
 		//recovery_rate.setOrientation(JSlider.VERTICAL);
@@ -130,6 +147,8 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		sim_size.setMinorTickSpacing(10);
 		sim_size.setPaintTicks(true);
 		sim_size.setPaintLabels(true);
+		//start animacji
+		
 		
 		
 		

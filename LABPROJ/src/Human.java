@@ -66,7 +66,8 @@ public class Human  {
 			{
 				
 				
-				if((i-1 >= 0 && (i-1) % width != width-1) && tmp[i-1] != 0 ) //jezeli piksel obok istnieje, jest w tym samym rzedzie i jest chory to rzucamy kostka, czy nasz zdrowy i-ty piksel sie od niego zarazi 
+				if(((i-1 >= 0 && (i-1) % width != width-1) && tmp[i-1] != 0) ||  (i % width == 0 && tmp[i+width-1] != 0) ) //jezeli piksel obok istnieje, jest w tym samym rzedzie i jest chory to rzucamy kostka, czy nasz zdrowy i-ty piksel sie od niego zarazi 
+				//lub jezeli piksel jest na lewym brzegu, a piksel w tym samym rzedzie z prawego brzegu jest chory to mozemy od niego zarazic
 				{
 					if(random.nextFloat()<= tras_rate)// jak liczba wypadnie w przedziale 0-trans_rate to piksel zotaje zarazony
 					{
@@ -74,8 +75,9 @@ public class Human  {
 						sickDays[i] = 1;//pierwszy dzien choroby
 					}
 				}
-			    if((i+1 < pixels.length && (i+1) % width != 0) && tmp[i+1] != 0)//sprawdzamy kolejnego sasiada, tym razem z prawej strony
-				{
+			    if(((i+1 < pixels.length && (i+1) % width != 0) && tmp[i+1] != 0) || ((i % width == width -1) && tmp[i-width +1] != 0))//sprawdzamy kolejnego sasiada, tym razem z prawej strony
+				//lub jezeli piksel jest na prawym brzegu, a piksel z lewegu brzegu z tego samego rzedu jest zarazony to mozna od niego zarazic
+			    {
 			    	if(random.nextFloat()<= tras_rate && sickDays[i] == 0)//sprawdzamy dodatkowo czy poprzedni sasiad juz nie zdazyl zarazic naszego piksela
 					{
 						
@@ -83,7 +85,7 @@ public class Human  {
 						sickDays[i] = 1;
 					}
 				}
-			    if(i-width >= 0 && tmp[i-width] != 0)//gorny sasiad
+			    if((i-width >= 0 && tmp[i-width] != 0) || ((i < width) && tmp[(width*height)-width +i] != 0))//gorny sasiad + warunek perdodycznosci
 			    {
 			    	
 			    	if(random.nextFloat()<= tras_rate && sickDays[i] == 0)
@@ -92,7 +94,7 @@ public class Human  {
 						sickDays[i] = 1;
 					}
 			    }
-			    if(i+width < pixels.length && tmp[i+width] != 0)//dolny sasiad
+			    if((i+width < pixels.length && tmp[i+width] != 0) || ((i>=(width * height - width)) && (tmp[i-(width * height -height)] != 0)))//dolny sasiad
 			    {
 			    	
 			    	if(random.nextFloat()<= tras_rate && sickDays[i] == 0)
