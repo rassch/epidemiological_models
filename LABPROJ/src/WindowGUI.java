@@ -82,8 +82,10 @@ public class WindowGUI extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			stop();//wylaczanie animacji
 			
+			stop();//wylaczanie animacji
+			settings.play_sir.setEnabled(true);
+			settings.play.setEnabled(true);
 		}
 	});
 	//animation.stop();

@@ -15,6 +15,8 @@ public class Human  {
 	private int[] initStates = new int[width*height] ;
 	private Random random = new Random();
 	private boolean[] immunity = new boolean[width*height];
+	private boolean[] immunityReset = new boolean[width * height];
+	
 	
 	
 	
@@ -33,7 +35,7 @@ public class Human  {
 	{		
 		for(int i=0 ; i<pixels.length;i++)
 		{
-			if(states[i] != 0)//jezeli chory, czyli stan pikesla jest 1 to zliczamy liczbe dni jego choroby i przy kazdej iteracji zwieszkam tutaj o jeden 
+			if(states[i] == 1)//jezeli chory, czyli stan pikesla jest 1 to zliczamy liczbe dni jego choroby i przy kazdej iteracji zwieszkam tutaj o jeden 
 			{
 				sickDays[i]+=1;//sickDays trzymamy tutaj bo ta tablica zapamietuje ilosc dni choroby, a nie stany chory/zdrowy
 			}
@@ -200,12 +202,14 @@ public class Human  {
 		for(int i =0;i<numOfPatientsX;i++)
 		{
 			pixels[random.nextInt(pixels.length)] = 0xFF0000;	
+			
 		}
 		for(int i=0;i<pixels.length;i++)
 		{
 			
+			immunityReset[i] = false;
 			
-			if(pixels[i] == 65280)//Czyli jak stan zdrowy
+			if(pixels[i] == 65280 || pixels[i]== 0x4286F4)//Czyli jak stan zdrowy lub immune
 			{
 				initStates[i] = 0 ;//to bedzie mial zielony kolor
 			}
@@ -214,6 +218,8 @@ public class Human  {
 				initStates[i] = 1;//wtedy kolor czerwony
 			}
 		}
+		
+		this.immunity = this.immunityReset;
 		this.states = this.initStates;
 		
 	}
@@ -261,10 +267,5 @@ public class Human  {
 	{
 		this.tras_rate = Rate;
 	}
-	
-		
-	public int getNumOfPatientsX()
-	{
-		return numOfPatientsX;
-	}
+
 }

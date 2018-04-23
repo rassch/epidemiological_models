@@ -121,6 +121,9 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		line14.addComponent(update);
 		columnO1.addComponent(update);
 		
+		lineO6.addComponent(reset);
+		columnO1.addComponent(reset);
+		
 		//suwak do prawd. wyzdrowienia
 		//recovery_rate.setOrientation(JSlider.VERTICAL);
 		recovery_rate.setMajorTickSpacing(20);

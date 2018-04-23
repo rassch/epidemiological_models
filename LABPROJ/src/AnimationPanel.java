@@ -37,17 +37,21 @@ public class AnimationPanel extends Canvas implements Runnable{
 	}
 	
 	
-	public synchronized void stop()	//funckja do zatrzymania procesu animacji
+	public void stop()	//funckja do zatrzymania procesu animacji
 	{
 		
-		running=false;//wylaczenie petli animacji
+		
+		
+		running=false;
 		try{
 		 
 		thread1.join();//thread.join czeka na az thread1 skonczy sie wykonywac, czyli na ostatnie odswiezenie animacji 
-		 Thread.currentThread().interrupt();
+		states.human.initGrid();
+		//wylaczenie petli animacji
 		}catch(InterruptedException e)
 		{
 			
+			thread1.interrupt();
 			e.printStackTrace();//jak sie zwali to wypisze jakiegos tam errora
 		}
 	}
@@ -95,7 +99,7 @@ public class AnimationPanel extends Canvas implements Runnable{
 		//stop();
 	}
 
-	public synchronized void init()
+	public void init()
 	{
 		
 		tmp = states.init();

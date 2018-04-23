@@ -46,7 +46,7 @@ public class States
 			{
 				pixels[i] = 65280 ;//to bedzie mial zielony kolor
 			}
-			else if (states[i] == -1)//czyli trup
+			else if (states[i] == -1)//czyli immune
 			{
 				pixels[i] = 0x4286F4;//wtedy kolor blu
 			}
