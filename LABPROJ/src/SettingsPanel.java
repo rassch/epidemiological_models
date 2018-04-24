@@ -17,15 +17,18 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 	
 	JSlider recovery_rate = new JSlider(0,100,10);
 	JSlider transm_rate = new JSlider(0,100,20);
-	JSlider death_rate = new JSlider(0,100,0);
+	//JSlider death_rate = new JSlider(0,100,0);
 	JLabel recovery_rate_label = new JLabel ("recovery rate (%)");
 	JLabel transm_rate_label = new JLabel ("transmission rate (%)");
-	JLabel death_rate_label = new JLabel ("death rate (%)");
+	//JLabel death_rate_label = new JLabel ("death rate (%)");
 	JLabel disease_settings_label = new JLabel ("SIMULATION SETTINGS");
 	JLabel sick_people = new JLabel ("People starting sick");
 	JSlider sick_people_slider = new JSlider(0,(int) (width_length*width_length*0.1),1);
-	JLabel sim_size_label = new JLabel ("Simulation size");
-	JSlider sim_size = new JSlider(10,100,100);
+	
+	
+	
+	JLabel sim_speed_label = new JLabel ("Simulation speed");
+	JSlider sim_speed = new JSlider(10,100,100);
 	JButton play = new JButton("Start SIS");
 	JButton play_sir = new JButton("Start SIR");
 	JButton update = new JButton("Update");
@@ -94,23 +97,23 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		lineO5.addComponent(transm_rate);
 		columnO1.addComponent(transm_rate);
 		
-		//lineO6.addComponent(death_rate_label);
-		//columnO1.addComponent(death_rate_label);
-		
-		//lineO7.addComponent(death_rate);
-		//columnO1.addComponent(death_rate);
-		
-		lineO8.addComponent(sick_people);
+		lineO6.addComponent(sick_people);
 		columnO1.addComponent(sick_people);
 		
-		lineO9.addComponent(sick_people_slider);
+		lineO7.addComponent(sick_people_slider);
 		columnO1.addComponent(sick_people_slider);
 		
-		line10.addComponent(sim_size_label);
-		columnO1.addComponent(sim_size_label);
+		lineO8.addComponent(sim_speed_label);
+		columnO1.addComponent(sim_speed_label);
 		
-		line11.addComponent(sim_size);
-		columnO1.addComponent(sim_size);
+		lineO9.addComponent(sim_speed);
+		columnO1.addComponent(sim_speed);
+		
+		//line10.addComponent(sim_size_label);
+		//columnO1.addComponent(sim_size_label);
+		
+		line11.addComponent(reset);
+		columnO1.addComponent(reset);
 		
 		line12.addComponent(play);
 		columnO1.addComponent(play);
@@ -121,8 +124,7 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		line14.addComponent(update);
 		columnO1.addComponent(update);
 		
-		lineO6.addComponent(reset);
-		columnO1.addComponent(reset);
+		
 		
 		//suwak do prawd. wyzdrowienia
 		//recovery_rate.setOrientation(JSlider.VERTICAL);
@@ -136,21 +138,20 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		transm_rate.setMinorTickSpacing(10);
 		transm_rate.setPaintTicks(true);
 		transm_rate.setPaintLabels(true);
-		//do procenta śmiertelności
-		//death_rate.setOrientation(JSlider.VERTICAL);
-		death_rate.setMajorTickSpacing(20);
-		death_rate.setMinorTickSpacing(10);
-		death_rate.setPaintTicks(true);
-		death_rate.setPaintLabels(true);
+		//do szybkosci symulacji
+		sim_speed.setMajorTickSpacing(20);
+		sim_speed.setMinorTickSpacing(10);
+		sim_speed.setPaintTicks(true);
+		sim_speed.setPaintLabels(true);
 		//do liczby chorych
 		sick_people_slider.setMajorTickSpacing((int) (width_length*width_length*0.02));
 		sick_people_slider.setPaintTicks(true);
 		sick_people_slider.setPaintLabels(true);
 		//do boku kwadrata
-		sim_size.setMajorTickSpacing(20);
-		sim_size.setMinorTickSpacing(10);
-		sim_size.setPaintTicks(true);
-		sim_size.setPaintLabels(true);
+		//sim_size.setMajorTickSpacing(20);
+		//sim_size.setMinorTickSpacing(10);
+		//sim_size.setPaintTicks(true);
+		//sim_size.setPaintLabels(true);
 		//start animacji
 		
 		

@@ -22,7 +22,7 @@ public class AnimationPanel extends Canvas implements Runnable{
 	private int[] tmp;
 	private Thread thread1;
 
-	private int animationSpeed2 = 10;//odswiezanie co x ms
+	public int animationSpeed2 = 10;//odswiezanie co x ms
 
 	
 	private boolean running = false;//animacja chodzi lub nie
