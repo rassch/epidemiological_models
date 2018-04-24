@@ -33,6 +33,7 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 	JButton play_sir = new JButton("Start SIR");
 	JButton update = new JButton("Update");
 	JButton reset = new JButton("Reset");
+	JButton repeat = new JButton("get data");
 	
 	SettingsPanel(){
 		//group Layout
@@ -57,6 +58,7 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		GroupLayout.Group line12 = objPropertiesPanelLayout.createParallelGroup();
 		GroupLayout.Group line13 = objPropertiesPanelLayout.createParallelGroup();
 		GroupLayout.Group line14 = objPropertiesPanelLayout.createParallelGroup();
+		GroupLayout.Group line15 = objPropertiesPanelLayout.createParallelGroup();
 		//
 		GroupLayout.SequentialGroup linesO = objPropertiesPanelLayout.createSequentialGroup();
 		GroupLayout.SequentialGroup columnsO = objPropertiesPanelLayout.createSequentialGroup();
@@ -76,6 +78,7 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		linesO.addGroup(line12);
 		linesO.addGroup(line13);
 		linesO.addGroup(line14);
+		linesO.addGroup(line15);
 		columnsO.addGroup(columnO1);
 		//columns1.addGroup(columnO2);
 		//
@@ -124,7 +127,8 @@ public class SettingsPanel extends JPanel { //TO DO dodać labele i actionListen
 		line14.addComponent(update);
 		columnO1.addComponent(update);
 		
-		
+		line15.addComponent(repeat);
+		columnO1.addComponent(repeat);
 		
 		//suwak do prawd. wyzdrowienia
 		//recovery_rate.setOrientation(JSlider.VERTICAL);

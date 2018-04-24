@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 
@@ -10,6 +12,11 @@ public class WindowGUI extends JFrame {
 	
 	SettingsPanel settings = new SettingsPanel();
 	AnimationPanel animation = new AnimationPanel();
+	LinkedList<Integer>[] healthy_tab = new LinkedList[10];
+	LinkedList<Integer>[] sick_tab;
+	LinkedList<Integer>[] immune_tab;
+	LinkedList<Integer>[] periods_tab;
+	
 	
 	public void setValuesAnim(){
 		//animation.states.human.setHeight(settings.sim_size.getValue()); // problem z konstruktorem
@@ -86,6 +93,32 @@ public class WindowGUI extends JFrame {
 			settings.play.setEnabled(true);
 		}
 	});
+	
+	
+	settings.repeat.addActionListener(new ActionListener() {
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			for (int i = 0; i < 10; i++)
+			{
+				healthy_tab[i] = new LinkedList<Integer>();
+				settings.play.doClick();
+				if (healthy_tab[i] == null) {
+					healthy_tab[i] = new LinkedList<Integer>();
+				  }
+				animation.states.healthy = healthy_tab[i];
+				try {
+					TimeUnit.MILLISECONDS.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				settings.reset.doClick();
+			}
+			
+		}
+	});
+	
 	//animation.stop();
 	this.setVisible(true);
 	this.setSize(650, 480);
