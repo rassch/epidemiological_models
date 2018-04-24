@@ -46,7 +46,6 @@ public class WindowGUI extends JFrame {
 	
 	
 	settings.update.addActionListener(new ActionListener() {
-		   @Override
 		   public void actionPerformed(ActionEvent event) {
 			  setValuesAnim();  // nie wiem jak zrobic zeby animacja ruszała od nowa
 				
@@ -56,8 +55,8 @@ public class WindowGUI extends JFrame {
 		});
 	settings.play.addActionListener(new ActionListener() {
 		
-		@Override
 		public void actionPerformed(ActionEvent e) {
+			animation.states.setSISTrue();
 			settings.play_sir.setEnabled(false);
 			settings.play.setEnabled(false);
 			setValuesAnim();//przypisanie poczatkowych parametrow
@@ -68,7 +67,6 @@ public class WindowGUI extends JFrame {
 	
 	settings.play_sir.addActionListener(new ActionListener() {
 		
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			animation.states.setSIRtrue();
 			settings.play_sir.setEnabled(false);
@@ -80,7 +78,6 @@ public class WindowGUI extends JFrame {
 	});
 	settings.reset.addActionListener(new ActionListener() {
 		
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			stop();//wylaczanie animacji

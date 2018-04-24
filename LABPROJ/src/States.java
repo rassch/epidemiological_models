@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 
 
 public class States
@@ -8,10 +10,19 @@ public class States
 	private int[] states = new int[human.getHeight() * human.getWidth()];//stany na ktorych model operuje i updatuje
 	private int[] tmp = new int[human.getHeight() * human.getWidth()];
 	private boolean sis=true,synchronous=true,sir= false;//wybor modelu i rodzaju odswiezania
+	LinkedList<Integer> healthy = new LinkedList<Integer>();
+	LinkedList<Integer> sick = new LinkedList<Integer>();
+	LinkedList<Integer> immune = new LinkedList<Integer>();
+	LinkedList<Integer> periods = new LinkedList<Integer>();
+	int healthyNum;
+	int sickNum;
+	int immuneNum ;
+	int periodsNum = 0;
+	
 	private void update()//wybor modelu i odswiezania
 	{
 
-
+		
 		if(sis && synchronous )
 		{
 			
@@ -33,35 +44,67 @@ public class States
 		{
 		
 		}	
-		
+		//System.out.println(periodsNum);
 	}
 	public int[] statesToPixels()//funckja konwertujaca stany na kolory ktore zostana przypisane pikselom i zwracajaca je do AnimationPanel
 	{
 		
+		healthyNum = 0;
+		sickNum = 0;
+		immuneNum = 0;
 		update();
+		periodsNum++;
+		periods.add(periodsNum);
 		//Random random = new Random();//testowanie czy jest zmienny output
 		for(int i=0;i<pixels.length;i++)
 		{
 			if(states[i] == 0)//Czyli jak stan zdrowy
 			{
+				healthyNum++;
 				pixels[i] = 65280 ;//to bedzie mial zielony kolor
 			}
 			else if (states[i] == -1)//czyli immune
 			{
+				immuneNum++;
 				pixels[i] = 0x4286F4;//wtedy kolor blu
 			}
 			else//czyli stan chory
 			{
+				sickNum++;
 				pixels[i] = 16711680;//wtedy kolor czerwony
 			}
+		
 		}
+		sick.add(sickNum);
+		healthy.add(healthyNum);
+		if(sir == true)
+		{
+			immune.add(immuneNum);
+		}
+		
+		//System.out.println(sick);
 		return this.pixels;
 	}
 	public int[] init()//funkcja inicjalizujaca mape
 	{
+		periodsNum = 0;
+		sickNum = human.getNumOfPatientsX();
+		healthyNum = (human.pixels.length - human.getNumOfPatientsX());
+		immuneNum = 0;
+		
+		sick.clear();
+		healthy.clear();
+		immune.clear();
+		periods.clear();
+		
 		human.initGrid();//inicjalizujemy ZIELONA mape
 		human.init();//funkcja generujaca poczatkowa liczbe zarazonych losowo rozlozonych po mapie
 		this.pixels= human.pixels;
+		periodsNum++;
+		periods.add(periodsNum);
+		sick.add(sickNum);
+		healthy.add(healthyNum);
+		immune.add(immuneNum);
 		return this.pixels;
 	}
 	public States()
@@ -72,6 +115,12 @@ public class States
 	{
 		sir = true;
 		sis =false;
+		synchronous = true;
+	}
+	void setSISTrue()
+	{
+		sir = false;
+		sis = true;
 		synchronous = true;
 	}
 }

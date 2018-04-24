@@ -26,7 +26,10 @@ public class Human  {
 		this.height=height;
 		pixels = new int[width * height];
 	}
-	
+	public int getNumOfPatientsX()
+	{
+		return numOfPatientsX;
+	}
 	public int[] initStates()
 	{
 		return this.initStates;
@@ -131,7 +134,7 @@ public class Human  {
 		for(int i=0;i<pixels.length;i++)
 		{
 			
-			if(tmp[i] == 1)//jezeli nasz piksel jest chory to idziemy dalej, bo nie nie da sie go ponownie zarazic, a nasz model nie zaklada resetowania sie dni trwania choroby w jej trakcie
+			if(tmp[i] >= 1)//jezeli nasz piksel jest chory to idziemy dalej, bo nie nie da sie go ponownie zarazic, a nasz model nie zaklada resetowania sie dni trwania choroby w jej trakcie
 			{
 				//System.out.println("omijam chory piksel"); 
 				states[i] = 1;
@@ -139,7 +142,7 @@ public class Human  {
 			else if(immunity[i])
 			{
 				states[i] = -1; //odporny
-				sickDays[i] =-69;
+				sickDays[i] = 0;
 			}
 			else if (tmp[i] == 0)//czyli jezeli ten i-ty piksel jest zdrowy to probojemy go zarazic
 			{
@@ -187,11 +190,11 @@ public class Human  {
 		}		
 		for(int i=0;i<pixels.length;i++)
 		{
-			if(sickDays[i]>0 && random.nextFloat() < getHealthyRate)//sprawdzamy czy piksel byl juz chory, jezeli tak to ma szanse siê uodporniæ 
+			if(sickDays[i]>0 && random.nextFloat() < getHealthyRate)//sprawdzamy czy piksel byl juz chory, jezeli tak to ma szanse siï¿½ uodporniï¿½ 
 			{
-				//states[i] = -1;
+				states[i] = -1;
 				immunity[i] = true;
-				sickDays[i] =-69;
+				sickDays[i] = 0;
 			}
 		}
 		return this.states;// gotowe states, ktore bedziemy przeliczac na piksele w klasie States
@@ -255,7 +258,6 @@ public class Human  {
 	{
 		this.numOfPatientsX = numOfPatietnsX;
 	}
-	
 	
 	public void setgetHealthyRate(double Rate)
 	{
