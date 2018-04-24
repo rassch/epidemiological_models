@@ -17,7 +17,7 @@ public class WindowGUI extends JFrame {
 		animation.states.human.setNumOfPatientsX(settings.sick_people_slider.getValue()); 
 		animation.states.human.setgetHealthyRate(settings.recovery_rate.getValue()*0.01);//reszta działa
 		animation.states.human.settras_rate(settings.transm_rate.getValue()*0.01);
-		animation.animationSpeed2 = (int) 1000/settings.sim_speed.getValue();
+		animation.animationSpeed2 = (int) 100/settings.sim_speed.getValue();
 		
 	}
 	public void run()
