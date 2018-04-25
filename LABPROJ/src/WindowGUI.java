@@ -1,7 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
@@ -13,10 +17,55 @@ public class WindowGUI extends JFrame {
 	SettingsPanel settings = new SettingsPanel();
 	AnimationPanel animation = new AnimationPanel();
 	LinkedList<Integer>[] healthy_tab = new LinkedList[10];
-	LinkedList<Integer>[] sick_tab;
-	LinkedList<Integer>[] immune_tab;
-	LinkedList<Integer>[] periods_tab;
+	LinkedList<Integer>[] sick_tab = new LinkedList[10];
+	LinkedList<Integer>[] immune_tab = new LinkedList[10];
+	LinkedList<Integer>[] periods_tab = new LinkedList[10];
 	
+			
+			
+			
+	public void  mean_values_export (LinkedList<Integer>[] tab, String filename)
+	{
+		
+		
+		String name = filename + ".txt";
+		
+		ListIterator<Integer> litr = null;
+		litr=tab[1].listIterator();
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(name, "UTF-8");
+			
+			
+			
+			
+			while(litr.hasNext()){
+				//System.out.println(litr.next());
+				writer.println(litr.next());
+			
+						
+				
+				
+				
+			
+			}
+			
+			writer.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+	}
 	
 	public void setValuesAnim(){
 		//animation.states.human.setHeight(settings.sim_size.getValue()); // problem z konstruktorem
@@ -101,20 +150,38 @@ public class WindowGUI extends JFrame {
 			
 			for (int i = 0; i < 10; i++)
 			{
-				healthy_tab[i] = new LinkedList<Integer>();
-				settings.play.doClick();
+				
+				
 				if (healthy_tab[i] == null) {
 					healthy_tab[i] = new LinkedList<Integer>();
 				  }
-				animation.states.healthy = healthy_tab[i];
+				
+				if (sick_tab[i] == null) {
+					sick_tab[i] = new LinkedList<Integer>();
+				  }
+				
+				if (immune_tab[i] == null) {
+					immune_tab[i] = new LinkedList<Integer>();
+				  }
+				
+				if (periods_tab[i] == null) {
+					periods_tab[i] = new LinkedList<Integer>();
+				  }
+				
+				
+				settings.play.doClick();
 				try {
 					TimeUnit.MILLISECONDS.sleep(1000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				animation.states.healthy = healthy_tab[i];
 				settings.reset.doClick();
 			}
+			mean_values_export(healthy_tab,"liczba zdrowych");
+			
+			
 			
 		}
 	});
