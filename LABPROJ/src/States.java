@@ -1,5 +1,7 @@
 import java.util.LinkedList;
 
+import org.xml.sax.ext.LexicalHandler;
+
 
 
 public class States
@@ -14,11 +16,50 @@ public class States
 	LinkedList<Integer> sick = new LinkedList<Integer>();
 	LinkedList<Integer> immune = new LinkedList<Integer>();
 	LinkedList<Integer> periods = new LinkedList<Integer>();
+	
+	LinkedList<Integer> healthyMean = new LinkedList<Integer>();
+	LinkedList<Integer> sickMean = new LinkedList<Integer>();
+	LinkedList<Integer> immuneMean = new LinkedList<Integer>();
+	LinkedList<Integer> periodsMean = new LinkedList<Integer>();
+	
 	int healthyNum;
 	int sickNum;
 	int immuneNum ;
 	int periodsNum = 0;
 	
+	void addToMean()
+	{
+		for(int i = 0;i<periodsNum;i++)
+		{
+			healthyMean.add(healthy.get(i)+healthyMean.get(i));
+			sickMean.add(sick.get(i)+sickMean.get(i));	
+			immuneMean.add(immune.get(i)+immuneMean.get(i));	
+		}
+	}
+	LinkedList<Integer> getHealthyMean()
+	{
+		for(int i=0;i<healthyMean.size();i++)
+		{
+			healthyMean.set(i, healthyMean.get(i)/10);
+		}
+		return healthyMean;
+	}
+	LinkedList<Integer> getSickMean()
+	{
+		for(int i=0;i<sickMean.size();i++)
+		{
+			sickMean.set(i, sickMean.get(i)/10);
+		}
+		return sickMean;
+	}
+	LinkedList<Integer> getImmuneMean()
+	{
+		for(int i=0;i<immuneMean.size();i++)
+		{
+			immuneMean.set(i, immuneMean.get(i)/10);
+		}
+		return immuneMean;
+	}
 	private void update()//wybor modelu i odswiezania
 	{
 

@@ -20,34 +20,19 @@ public class WindowGUI extends JFrame {
 	LinkedList<Integer>[] sick_tab = new LinkedList[10];
 	LinkedList<Integer>[] immune_tab = new LinkedList[10];
 	LinkedList<Integer>[] periods_tab = new LinkedList[10];
-	
-			
-			
 			
 	public void  mean_values_export (LinkedList<Integer>[] tab, String filename)
 	{
 		
-		
 		String name = filename + ".txt";
-		
 		ListIterator<Integer> litr = null;
 		litr=tab[1].listIterator();
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(name, "UTF-8");
-			
-			
-			
-			
 			while(litr.hasNext()){
 				//System.out.println(litr.next());
 				writer.println(litr.next());
-			
-						
-				
-				
-				
-			
 			}
 			
 			writer.close();
@@ -58,13 +43,7 @@ public class WindowGUI extends JFrame {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
-		
+		}	
 	}
 	
 	public void setValuesAnim(){
@@ -176,9 +155,12 @@ public class WindowGUI extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				animation.states.healthy = healthy_tab[i];
+				
+				animation.states.addToMean();//dodawanie kazdej iteracji
+				healthy_tab[i]= animation.states.healthyMean;
 				settings.reset.doClick();
 			}
+			//animation.states.getHealthyMean();//zwraca usredniona linkedliste zdrowych analogiczne funkcje dla sick i immune
 			mean_values_export(healthy_tab,"liczba zdrowych");
 			
 			
