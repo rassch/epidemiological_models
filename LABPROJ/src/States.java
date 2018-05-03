@@ -60,6 +60,12 @@ public class States
 		}
 		return immuneMean;
 	}
+	void clear()
+	{
+		healthyMean.clear();
+		sickMean.clear();
+		immuneMean.clear();
+	}
 	private void update()//wybor modelu i odswiezania
 	{
 

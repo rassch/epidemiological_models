@@ -162,7 +162,7 @@ public class WindowGUI extends JFrame {
 			}
 			//animation.states.getHealthyMean();//zwraca usredniona linkedliste zdrowych analogiczne funkcje dla sick i immune
 			mean_values_export(healthy_tab,"liczba zdrowych");
-			
+			animation.states.clear();//czyszczenie tablicy po zapisaniu do pliku
 			
 			
 		}
