@@ -130,7 +130,7 @@ public class WindowGUI extends JFrame {
 			for (int i = 0; i < 10; i++)
 			{
 				
-				
+				animation.states.resetCounter();//czyszczenie licznika
 				if (healthy_tab[i] == null) {
 					healthy_tab[i] = new LinkedList<Integer>();
 				  }
@@ -156,7 +156,7 @@ public class WindowGUI extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				animation.states.addToMean();//dodawanie kazdej iteracji
+				//animation.states.addToMean();//dodawanie kazdej iteracji
 				healthy_tab[i]= animation.states.healthyMean;
 				settings.reset.doClick();
 			}

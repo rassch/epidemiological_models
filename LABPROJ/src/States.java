@@ -12,14 +12,18 @@ public class States
 	private int[] states = new int[human.getHeight() * human.getWidth()];//stany na ktorych model operuje i updatuje
 	private int[] tmp = new int[human.getHeight() * human.getWidth()];
 	private boolean sis=true,synchronous=true,sir= false;//wybor modelu i rodzaju odswiezania
+	private int counter = 0;
 	LinkedList<Integer> healthy = new LinkedList<Integer>();
 	LinkedList<Integer> sick = new LinkedList<Integer>();
 	LinkedList<Integer> immune = new LinkedList<Integer>();
 	LinkedList<Integer> periods = new LinkedList<Integer>();
 	
 	LinkedList<Integer> healthyMean = new LinkedList<Integer>();
+	LinkedList<Integer> healthyMeanTmp = new LinkedList<Integer>();
 	LinkedList<Integer> sickMean = new LinkedList<Integer>();
+	LinkedList<Integer> sickMeanTmp = new LinkedList<Integer>();
 	LinkedList<Integer> immuneMean = new LinkedList<Integer>();
+	LinkedList<Integer> immuneMeanTmp = new LinkedList<Integer>();
 	LinkedList<Integer> periodsMean = new LinkedList<Integer>();
 	
 	int healthyNum;
@@ -27,14 +31,41 @@ public class States
 	int immuneNum ;
 	int periodsNum = 0;
 	
+	
+	void resetCounter()
+	{
+		this.counter = 0;
+	}
 	void addToMean()
 	{
-		for(int i = 0;i<periodsNum;i++)
+		if(counter==0)
+			;
+		else
+		for(int i = 0;i<healthy.size();i++)
 		{
-			healthyMean.add(healthy.get(i)+healthyMean.get(i));
-			sickMean.add(sick.get(i)+sickMean.get(i));	
-			immuneMean.add(immune.get(i)+immuneMean.get(i));	
+			if(counter==1)
+			{	
+				healthyMean.add(healthy.get(i));
+				sickMean.add(sick.get(i));
+				immuneMean.add(immune.get(i));	
+				/*healthyMean.add(healthy.get(i)+healthyMeanTmp.get(i));
+				sickMean.add(sick.get(i)+sickMeanTmp.get(i));	
+				immuneMean.add(immune.get(i)+immuneMeanTmp.get(i));	
+				*/
+			}
+			else
+				healthyMeanTmp.add(healthy.get(i));
+				sickMeanTmp.add(sick.get(i));
+				immuneMeanTmp.add(immune.get(i));
+				
+				healthyMean.set(i, healthyMean.get(i)+healthyMeanTmp.get(i));
+				sickMean.set(i, sickMean.get(i)+sickMeanTmp.get(i));
+				immuneMean.set(i, immuneMean.get(i)+immuneMeanTmp.get(i));
+				
 		}
+		healthyMeanTmp.clear();
+		sickMeanTmp.clear();
+		immuneMeanTmp.clear();
 	}
 	LinkedList<Integer> getHealthyMean()
 	{
@@ -134,6 +165,8 @@ public class States
 	}
 	public int[] init()//funkcja inicjalizujaca mape
 	{
+		addToMean();
+		counter++;
 		periodsNum = 0;
 		sickNum = human.getNumOfPatientsX();
 		healthyNum = (human.pixels.length - human.getNumOfPatientsX());
