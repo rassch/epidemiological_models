@@ -16,17 +16,15 @@ public class WindowGUI extends JFrame {
 	
 	SettingsPanel settings = new SettingsPanel();
 	AnimationPanel animation = new AnimationPanel();
-	LinkedList<Integer>[] healthy_tab = new LinkedList[10];
-	LinkedList<Integer>[] sick_tab = new LinkedList[10];
-	LinkedList<Integer>[] immune_tab = new LinkedList[10];
-	LinkedList<Integer>[] periods_tab = new LinkedList[10];
-			
-	public void  mean_values_export (LinkedList<Integer>[] tab, String filename)
+
+	
+	
+	public void  mean_values_export (LinkedList<Integer> tab, String filename)
 	{
 		
 		String name = filename + ".txt";
 		ListIterator<Integer> litr = null;
-		litr=tab[1].listIterator();
+		litr=tab.listIterator();
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(name, "UTF-8");
@@ -127,25 +125,11 @@ public class WindowGUI extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i <animation.states.simulationIterations; i++)
 			{
 				
-				animation.states.resetCounter();//czyszczenie licznika
-				if (healthy_tab[i] == null) {
-					healthy_tab[i] = new LinkedList<Integer>();
-				  }
 				
-				if (sick_tab[i] == null) {
-					sick_tab[i] = new LinkedList<Integer>();
-				  }
-				
-				if (immune_tab[i] == null) {
-					immune_tab[i] = new LinkedList<Integer>();
-				  }
-				
-				if (periods_tab[i] == null) {
-					periods_tab[i] = new LinkedList<Integer>();
-				  }
+			
 				
 				
 				settings.play.doClick();
@@ -157,11 +141,11 @@ public class WindowGUI extends JFrame {
 				}
 				
 				//animation.states.addToMean();//dodawanie kazdej iteracji
-				healthy_tab[i]= animation.states.healthyMean;
 				settings.reset.doClick();
 			}
+			animation.states.resetCounter();//czyszczenie licznika
 			//animation.states.getHealthyMean();//zwraca usredniona linkedliste zdrowych analogiczne funkcje dla sick i immune
-			mean_values_export(healthy_tab,"liczba zdrowych");
+			mean_values_export(animation.states.getHealthyMean(),"liczba zdrowych");
 			animation.states.clear();//czyszczenie tablicy po zapisaniu do pliku
 			
 			

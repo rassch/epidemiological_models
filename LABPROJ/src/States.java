@@ -13,17 +13,19 @@ public class States
 	private int[] tmp = new int[human.getHeight() * human.getWidth()];
 	private boolean sis=true,synchronous=true,sir= false;//wybor modelu i rodzaju odswiezania
 	private int counter = 0;
+	public int simulationIterations = 5;
+	
 	LinkedList<Integer> healthy = new LinkedList<Integer>();
 	LinkedList<Integer> sick = new LinkedList<Integer>();
 	LinkedList<Integer> immune = new LinkedList<Integer>();
 	LinkedList<Integer> periods = new LinkedList<Integer>();
 	
 	LinkedList<Integer> healthyMean = new LinkedList<Integer>();
-	LinkedList<Integer> healthyMeanTmp = new LinkedList<Integer>();
+	//LinkedList<Integer> healthyMeanTmp = new LinkedList<Integer>();
 	LinkedList<Integer> sickMean = new LinkedList<Integer>();
-	LinkedList<Integer> sickMeanTmp = new LinkedList<Integer>();
+	//LinkedList<Integer> sickMeanTmp = new LinkedList<Integer>();
 	LinkedList<Integer> immuneMean = new LinkedList<Integer>();
-	LinkedList<Integer> immuneMeanTmp = new LinkedList<Integer>();
+	//LinkedList<Integer> immuneMeanTmp = new LinkedList<Integer>();
 	LinkedList<Integer> periodsMean = new LinkedList<Integer>();
 	
 	int healthyNum;
@@ -40,38 +42,37 @@ public class States
 	{
 		if(counter==0)
 			;
-		else
-		for(int i = 0;i<healthy.size();i++)
-		{
-			if(counter==1)
+		else if(counter==1)
 			{	
-				healthyMean.add(healthy.get(i));
-				sickMean.add(sick.get(i));
-				immuneMean.add(immune.get(i));	
+				
+				healthyMean.addAll(healthy);
+				sickMean.addAll(sick);
+				immuneMean.addAll(immune);	
 				/*healthyMean.add(healthy.get(i)+healthyMeanTmp.get(i));
 				sickMean.add(sick.get(i)+sickMeanTmp.get(i));	
 				immuneMean.add(immune.get(i)+immuneMeanTmp.get(i));	
 				*/
 			}
-			else
-				healthyMeanTmp.add(healthy.get(i));
-				sickMeanTmp.add(sick.get(i));
-				immuneMeanTmp.add(immune.get(i));
-				
-				healthyMean.set(i, healthyMean.get(i)+healthyMeanTmp.get(i));
-				sickMean.set(i, sickMean.get(i)+sickMeanTmp.get(i));
-				immuneMean.set(i, immuneMean.get(i)+immuneMeanTmp.get(i));
-				
-		}
-		healthyMeanTmp.clear();
-		sickMeanTmp.clear();
-		immuneMeanTmp.clear();
+		else
+			{
+				for(int i = 0;i<healthyMean.size();i++)
+				{	
+									
+					healthyMean.set(i, healthyMean.get(i)+healthy.get(i));
+					sickMean.set(i, sickMean.get(i)+sick.get(i));
+					immuneMean.set(i, immuneMean.get(i)+immune.get(i));
+				}	
+			}	
+		
+		//healthyMeanTmp.clear();
+		//sickMeanTmp.clear();
+		//immuneMeanTmp.clear();
 	}
 	LinkedList<Integer> getHealthyMean()
 	{
 		for(int i=0;i<healthyMean.size();i++)
 		{
-			healthyMean.set(i, healthyMean.get(i)/10);
+			healthyMean.set(i, healthyMean.get(i)/simulationIterations);
 		}
 		return healthyMean;
 	}
@@ -79,7 +80,7 @@ public class States
 	{
 		for(int i=0;i<sickMean.size();i++)
 		{
-			sickMean.set(i, sickMean.get(i)/10);
+			sickMean.set(i, sickMean.get(i)/simulationIterations);
 		}
 		return sickMean;
 	}
@@ -87,7 +88,7 @@ public class States
 	{
 		for(int i=0;i<immuneMean.size();i++)
 		{
-			immuneMean.set(i, immuneMean.get(i)/10);
+			immuneMean.set(i, immuneMean.get(i)/simulationIterations);
 		}
 		return immuneMean;
 	}
@@ -185,6 +186,8 @@ public class States
 		sick.add(sickNum);
 		healthy.add(healthyNum);
 		immune.add(immuneNum);
+		System.out.println(healthyMean);
+		//System.out.println(healthyMeanTmp);
 		return this.pixels;
 	}
 	public States()
