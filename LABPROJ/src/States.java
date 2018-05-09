@@ -13,6 +13,7 @@ public class States
 	private int[] tmp = new int[human.getHeight() * human.getWidth()];
 	private boolean sis=true,synchronous=true,sir= false;//wybor modelu i rodzaju odswiezania
 	private int counter = 0;
+	public int iterationCounter = 0;
 	public int simulationIterations = 5;
 	
 	LinkedList<Integer> healthy = new LinkedList<Integer>();
@@ -60,7 +61,10 @@ public class States
 									
 					healthyMean.set(i, healthyMean.get(i)+healthy.get(i));
 					sickMean.set(i, sickMean.get(i)+sick.get(i));
-					immuneMean.set(i, immuneMean.get(i)+immune.get(i));
+					if(sir==true)
+					{
+						immuneMean.set(i, immuneMean.get(i)+immune.get(i));
+					}
 				}	
 			}	
 		
@@ -133,6 +137,7 @@ public class States
 		immuneNum = 0;
 		update();
 		periodsNum++;
+		iterationCounter++;
 		periods.add(periodsNum);
 		//Random random = new Random();//testowanie czy jest zmienny output
 		for(int i=0;i<pixels.length;i++)
@@ -161,12 +166,12 @@ public class States
 			immune.add(immuneNum);
 		}
 		
-		//System.out.println(sick);
+		System.out.println(iterationCounter);
 		return this.pixels;
 	}
 	public int[] init()//funkcja inicjalizujaca mape
 	{
-		addToMean();
+		//addToMean();
 		counter++;
 		periodsNum = 0;
 		sickNum = human.getNumOfPatientsX();

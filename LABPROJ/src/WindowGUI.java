@@ -127,21 +127,14 @@ public class WindowGUI extends JFrame {
 			
 			for (int i = 0; i <animation.states.simulationIterations; i++)
 			{
-				
-				
-			
-				
-				
 				settings.play.doClick();
-				try {
-					TimeUnit.MILLISECONDS.sleep(1000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+			
+				if(animation.states.iterationCounter == 3000)
+				{
+					
+					settings.reset.doClick();
+					animation.states.addToMean();
 				}
-				
-				//animation.states.addToMean();//dodawanie kazdej iteracji
-				settings.reset.doClick();
 			}
 			animation.states.resetCounter();//czyszczenie licznika
 			//animation.states.getHealthyMean();//zwraca usredniona linkedliste zdrowych analogiczne funkcje dla sick i immune
