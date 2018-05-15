@@ -125,6 +125,8 @@ public class WindowGUI extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			
+			Simulation sim = new Simulation();
+			/*
 			for (int i = 0; i <animation.states.simulationIterations; i++)
 			{
 				settings.play.doClick();
@@ -141,8 +143,9 @@ public class WindowGUI extends JFrame {
 			mean_values_export(animation.states.getHealthyMean(),"liczba zdrowych");
 			animation.states.clear();//czyszczenie tablicy po zapisaniu do pliku
 			
-			
+		*/	
 		}
+		
 	});
 	
 	//animation.stop();
