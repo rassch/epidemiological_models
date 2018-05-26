@@ -10,8 +10,8 @@ public class Simulation
 	public Human human = new Human(100, 100);
 	private int counter = 0;
 	public int iterationCounter = 0;
-	public int simulationIterations = 5;
-	private int simulationSteps = 2000;
+	public int simulationIterations = 200;
+	private int simulationSteps = 400;
 	
 	LinkedList<Integer> healthy = new LinkedList<Integer>();
 	LinkedList<Integer> sick = new LinkedList<Integer>();
@@ -33,6 +33,10 @@ public class Simulation
 	int states[] = new int[40000];
 	int tmpStates[] = new int[40000];
 	//int initStates[];
+	
+	Double zdrowe = 0.;
+	Double chore = 0.5;
+	
 	public void  mean_values_export (LinkedList<Integer> tab, String filename)
 	{
 		
@@ -190,8 +194,8 @@ public class Simulation
 		//narazie petle zostawiam zakomentowana, przetestuj sobie jak dziala
 		//for(double z =0.01;z<1;z+=0.01)
 		//{	
-			human.setgetHealthyRate(0.2);//wspolczynik zdrowienia w sisie/uodparniania sie w sirze
-			human.settras_rate(0.5);//wspolczynnik zarazania
+			human.setgetHealthyRate(zdrowe);//wspolczynik zdrowienia w sisie/uodparniania sie w sirze
+			human.settras_rate(chore);//wspolczynnik zarazania
 			for(int j=0;j<simulationIterations;j++)//liczba symulacji dla jednego ukladu parametrow
 			{
 				init();
@@ -204,7 +208,7 @@ public class Simulation
 				addToMean();
 				counter++;
 			}
-			mean_values_export(getHealthyMean(), "zdrowi");//tworzymy plik dla kazdego ukladu parametrow
+			mean_values_export(getHealthyMean(), "zdrowi_SIR_ch_" + chore.toString() + "_zd_" + zdrowe.toString());//tworzymy plik dla kazdego ukladu parametrow
 			mean_values_export(getSickMean(), "chorzy");
 			mean_values_export(getImmuneMean(), "odporni");
 			counter = 0;

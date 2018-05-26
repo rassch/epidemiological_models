@@ -150,7 +150,7 @@ public class WindowGUI extends JFrame {
 	
 	//animation.stop();
 	this.setVisible(true);
-	this.setSize(650, 480);
+	this.setSize(750, 580);
 	//this.setResizable(false);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	
